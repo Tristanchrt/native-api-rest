@@ -17,14 +17,12 @@ class RestRouter
     public function run()
     {
         if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
-            // echo('REQUEST_METHOD does not exist');
+            echo('REQUEST_METHOD does not exist');
         }
 
         foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
-            var_dump($route);
             if ($route->match($this->url)) {
-                var_dump($route);
-                // $route->call(1,2);
+                return $route->call();
             }
         }
     }
@@ -46,19 +44,5 @@ class RestRouter
     public function post($path, $callable)
     {
         return $this->add($path, $callable, 'POST');
-    }
-
-    public function match($current_url)
-    {
-        // $url = explode('/',$current_url);
-        // var_dump($url);
-
-        // $method = 'GET';
-        // foreach ($this->routes[$method] as &$r) {
-        //     var_dump($r);
-        // }
-    }
-    public function call($class, $method)
-    {
     }
 }
