@@ -13,10 +13,17 @@ require_once '../router/RestRouter.php';
 $host = $_SERVER['REQUEST_URI'];
 
 $router = new RestRouter($host);
-$router->get('/api/item/:id/item/:name', function ($request){
-    echo json_encode($request);
+
+$router->groups('api/', function($router) {
+    $router->groups('item/', function($router) {
+        $router->get(':id/item/:name', "ItemController@get_items");
+        $router->post(':id', "ItemController@get_items");
+        $router->groups('item/', function($router) { 
+            $router->post(':id', "ItemController@get_items");
+        });
+    });
 });
-$router->post('/api/item/:id', "ItemController@get_items");
+
 $router->run();
 
 

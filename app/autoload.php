@@ -6,7 +6,7 @@ class Autoloader{
     }
 
     static function autoload($class){
-        require_once 'controller/' . $class . '.php';
+        require_once 'Controller/' . $class . '.php';
     }
 
 }
